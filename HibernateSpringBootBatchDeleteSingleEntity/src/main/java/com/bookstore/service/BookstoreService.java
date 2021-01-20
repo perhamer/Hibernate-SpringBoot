@@ -24,7 +24,7 @@ public class BookstoreService {
             Author author = new Author();
             author.setName("Name_" + i);
             author.setGenre("Genre_" + i);
-            author.setAge((int) ((Math.random() + 0.1) * 100));
+            author.setAge((int) ((Math.random() + 0.1) * 100));            
 
             authors.add(author);
         }
@@ -41,12 +41,22 @@ public class BookstoreService {
     // a DELETE of type, delete from author where id=? or id=? or id=? ...
     // without exceeding the maximum accepted size (as a workaround, 
     // split the number of deletes in multiple chunks to avoid this issue)
+    // doesn't prevent lost updates
     @Transactional
     public void deleteAuthorsViaDeleteInBatch() {
 
         List<Author> authors = authorRepository.findByAgeLessThan(60);
 
         authorRepository.deleteInBatch(authors);
+    }
+    
+    // good if you want an alternative to deleteInBatch()
+    @Transactional
+    public void deleteAuthorsViaDeleteInBulk() {
+
+        List<Author> authors = authorRepository.findByAgeLessThan(60);
+
+        authorRepository.deleteInBulk(authors);
     }
 
     // good if you need to delete in a classical batch approach

@@ -22,13 +22,9 @@ public class Book implements Serializable {
     private String isbn;
     private double price;
 
-    // @Generated(GenerationTime.INSERT) 
-    // @Column(name="...", insertable=false)
-    
     @Generated(value = GenerationTime.ALWAYS)
-    @Column(insertable = false, updatable = false,
-            columnDefinition = "double AS (price - price * 0.25)")
-    private double discount;
+    @Column(insertable = false, updatable = false /*, columnDefinition = "double AS (price - price * 0.25)"*/)
+    private double discounted;
 
     public Long getId() {
         return id;
@@ -62,17 +58,13 @@ public class Book implements Serializable {
         this.price = price;
     }
 
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
+    public double getDiscounted() {
+        return discounted;
     }
 
     @Override
     public String toString() {
         return "Book{" + "id=" + id + ", title=" + title + ", isbn="
-                + isbn + ", price=" + price + ", discount=" + discount + '}';
+                + isbn + ", price=" + price + ", discounted=" + discounted + '}';
     }
 }

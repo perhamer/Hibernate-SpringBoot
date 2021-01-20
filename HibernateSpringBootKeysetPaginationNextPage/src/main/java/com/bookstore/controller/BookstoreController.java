@@ -1,9 +1,8 @@
 package com.bookstore.controller;
 
-import com.bookstore.entity.Author;
 import com.bookstore.service.BookstoreService;
-import java.util.List;
-import java.util.Map;
+import com.bookstore.view.AuthorView;
+import com.bookstore.view.AuthorViewDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +17,14 @@ public class BookstoreController {
     }
 
     @GetMapping("/authors/{id}/{limit}")
-    public Map<List<Author>, Boolean> fetchAuthors(@PathVariable long id, @PathVariable int limit) {
+    public AuthorView fetchAuthors(@PathVariable long id, @PathVariable int limit) {
 
         return bookstoreService.fetchNextPage(id, limit);
+    }
+
+    @GetMapping("/dto/authors/{id}/{limit}")
+    public AuthorViewDto fetchAuthorsDto(@PathVariable long id, @PathVariable int limit) {
+
+        return bookstoreService.fetchNextPageDto(id, limit);
     }
 }

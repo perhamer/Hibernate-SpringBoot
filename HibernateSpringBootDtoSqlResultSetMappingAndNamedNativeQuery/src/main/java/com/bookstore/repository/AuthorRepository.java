@@ -9,9 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.Query;
 
 @Repository
+@Transactional(readOnly = true)
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
-    @Transactional(readOnly = true)
+    @Query(name = "AuthorsNameQuery", nativeQuery = true)
+    List<String> fetchName();
+
     @Query(name = "AuthorDtoQuery", nativeQuery = true)
-    List<AuthorDto> fetchAuthors();
+    List<AuthorDto> fetchNameAndAge();
 }

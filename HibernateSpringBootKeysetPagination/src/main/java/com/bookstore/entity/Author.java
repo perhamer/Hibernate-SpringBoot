@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Author implements Serializable {
-
+ 
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -17,7 +17,7 @@ public class Author implements Serializable {
 
     private int age;
     private String name;
-    private String genre;
+    private String genre;  
 
     public Long getId() {
         return id;
